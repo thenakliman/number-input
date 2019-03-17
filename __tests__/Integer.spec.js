@@ -39,19 +39,39 @@ describe('Integer', () => {
       it('should update value in component to zero on input delete', () => {
         const component = shallow(<Integer onChange={jest.fn()}/>);
         component.find('input').simulate('change', {target: {value: ''}})
-        expect(component.state().value).toBe('0');
+        expect(component.state().value).toBe('');
       })
 
-      it('should update 0- value to -0', () => {
+      it('should update - value to -', () => {
         const component = shallow(<Integer onChange={jest.fn()}/>);
-        component.find('input').simulate('change', {target: {value: '0-'}})
+        component.find('input').simulate('change', {target: {value: '-'}})
+        expect(component.state().value).toBe('-');
+      })
+
+      it('should update empty string value to empty string', () => {
+        const component = shallow(<Integer onChange={jest.fn()}/>);
+        component.find('input').simulate('change', {target: {value: ''}})
+        expect(component.state().value).toBe('');
+      })
+
+      it('should update -0 value to 0', () => {
+        const component = shallow(<Integer onChange={jest.fn()}/>);
+        component.find('input').simulate('change', {target: {value: '-0'}})
         expect(component.state().value).toBe('-0');
       })
 
-      it('should update - value to 0', () => {
-        const component = shallow(<Integer onChange={jest.fn()}/>);
+      it('should call onChange with 0 for -', () => {
+        const onChange = jest.fn();
+        const component = shallow(<Integer onChange={onChange}/>);
         component.find('input').simulate('change', {target: {value: '-'}})
-        expect(component.state().value).toBe('0');
+        expect(onChange).toHaveBeenCalledWith(-0);
+      })
+
+      it('should call onChange with 0 for empty string', () => {
+        const onChange = jest.fn();
+        const component = shallow(<Integer onChange={onChange}/>);
+        component.find('input').simulate('change', {target: {value: ''}})
+        expect(onChange).toHaveBeenCalledWith(0);
       })
 
       it('should call onChange hook', () => {
@@ -108,6 +128,12 @@ describe('Integer', () => {
         const component = shallow(<Integer onChange={jest.fn()} value={value}/>);
         component.find('input').simulate('change', {target: {value: 'k100'}})
         expect(component.state().value).toBe(value.toString());
+      })
+
+      it('should not update 0- value', () => {
+        const component = shallow(<Integer onChange={jest.fn()}/>);
+        component.find('input').simulate('change', {target: {value: '0-'}})
+        expect(component.state().value).toBe('0');
       })
 
       it('should call onInvalidInput hook', () => {

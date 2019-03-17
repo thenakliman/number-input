@@ -9,18 +9,26 @@ export class Integer extends Component {
     this.changeValue = this.changeValue.bind(this);
   }
 
-  getValueToDisplay(value) {
-    if(value === '' || value === '-')
-      return '0';
-    else if(value === '0-')
-      return '-0';
+  integerValue(value) {
+    if(value === '-') {
+      return -0;
+    } else if(value === '') {
+      return 0;
+    }
 
-    return value;
+    return parseInt(value);
+  }
+
+  displayValue(value) {
+    if(['-0', '-', ''].includes(value)) {
+       return value;
+    }
+    return parseInt(value).toString();
   }
 
   changeValue(value) {
-      const integerValue = parseInt(value);
-      const stringValue = (value === '-0'? value: integerValue.toString());
+      const integerValue = this.integerValue(value);
+      const stringValue = this.displayValue(value);
       this.setState({value: stringValue});
       if (typeof this.props.onChange === "function") {
          this.props.onChange(integerValue);
@@ -33,11 +41,11 @@ export class Integer extends Component {
   }
 
   onChange(event) {
-    const value = this.getValueToDisplay(event.target.value);
-    if(this.isInteger(value)) {
-      this.changeValue(value);
+    const newValue = event.target.value;
+    if(this.isInteger(newValue)) {
+      this.changeValue(newValue);
     } else if (typeof this.props.onInvalidInput === "function") {
-      this.props.onInvalidInput(event.target.value.toString());
+      this.props.onInvalidInput(newValue.toString());
     }
   }
 
