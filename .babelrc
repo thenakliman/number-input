@@ -1,6 +1,19 @@
 {
-    "presets": [
-        "@babel/preset-env",
-        "@babel/preset-react"
-    ]
+  "env": {
+    "dev": {
+      "presets": [
+        ["env", {
+          "modules": false
+        }],
+          "stage-0",
+        "react"
+      ]
+    },
+    "test": {
+      "presets": [
+          "@babel/preset-env",
+          "@babel/preset-react"
+      ]
+    }
+  }
 }
