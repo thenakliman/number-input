@@ -23,6 +23,13 @@ describe('PositiveInteger', () => {
         expect(component.state().value).toBe(newValue.toString());
       })
 
+      it('should update value even when onChange is not provided', () => {
+        const component = shallow(<PositiveInteger/>);
+        const newValue = 102;
+        component.find('input').simulate('change', {target: {value: newValue}})
+        expect(component.state().value).toBe(newValue.toString());
+      })
+
       it('should update value in component to zero on input delete', () => {
         const component = shallow(<PositiveInteger onChange={jest.fn()}/>);
         component.find('input').simulate('change', {target: {value: ''}})

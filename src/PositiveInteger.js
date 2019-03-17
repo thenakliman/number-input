@@ -6,35 +6,40 @@ export class PositiveInteger extends Component {
     super(props);
     this.state = {value: this.props.value && this.props.value.toString() || '0'};
     this.onChange = this.onChange.bind(this);
-    this.setValue = this.setValue.bind(this);
+    this.changeValue = this.changeValue.bind(this);
   }
 
-  getValue(value) {
+  getValueToDisplay(value) {
     if(value === '')
       return '0'
 
     return value;
   }
 
-  setValue(value) {
+  changeValue(value) {
       const positiveInteger = parseInt(value).toString();
       this.setState({value: positiveInteger});
-      this.props.onChange(parseInt(positiveInteger));
+      if (typeof this.props.onChange === "function") {
+         this.props.onChange(parseInt(positiveInteger));
+      }
+  }
+
+  isPositiveInteger(value) {
+    const positiveIntegerRegex = /^\d+$/;
+    return positiveIntegerRegex.test(value);
   }
 
   onChange(event) {
-    const positiveIntegerRegex = /^\d+$/;
-    const value = this.getValue(event.target.value);
-    if(positiveIntegerRegex.test(value)) {
-      this.setValue(value);
+    const value = this.getValueToDisplay(event.target.value);
+    if(this.isPositiveInteger(value)) {
+      this.changeValue(value);
     } else if (typeof this.props.onInvalidInput === "function") {
       this.props.onInvalidInput(event.target.value);
     }
   }
 
   render() {
-    return (
-        <input  {...this.props} value={this.state.value} onChange={this.onChange}/>
-    )
+    const {onInvalidInput, onChange, ...props} = this.props
+    return <input  {...props} value={this.state.value} onChange={this.onChange}/>
   }
 }
