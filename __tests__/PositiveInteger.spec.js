@@ -33,7 +33,7 @@ describe('PositiveInteger', () => {
       it('should update value in component to zero on input delete', () => {
         const component = shallow(<PositiveInteger onChange={jest.fn()}/>);
         component.find('input').simulate('change', {target: {value: ''}})
-        expect(component.state().value).toBe('0');
+        expect(component.state().value).toBe('');
       })
 
       it('should call onChange hook', () => {

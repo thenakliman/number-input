@@ -9,32 +9,40 @@ export class PositiveInteger extends Component {
     this.changeValue = this.changeValue.bind(this);
   }
 
-  getValueToDisplay(value) {
-    if(value === '')
-      return '0'
+  displayValue(value) {
+    if(value === '') {
+       return value;
+    }
 
-    return value;
+    return parseInt(value).toString();
+  }
+
+  integerValue(value) {
+    if(value === '') {
+       return 0;
+    }
+
+    return parseInt(value);
   }
 
   changeValue(value) {
-      const positiveInteger = parseInt(value).toString();
-      this.setState({value: positiveInteger});
+      this.setState({value: this.displayValue(value)});
       if (typeof this.props.onChange === "function") {
-         this.props.onChange(parseInt(positiveInteger));
+         this.props.onChange(this.integerValue(value));
       }
   }
 
   isPositiveInteger(value) {
-    const positiveIntegerRegex = /^\d+$/;
+    const positiveIntegerRegex = /^\d*$/;
     return positiveIntegerRegex.test(value);
   }
 
   onChange(event) {
-    const value = this.getValueToDisplay(event.target.value);
+    const value = event.target.value;
     if(this.isPositiveInteger(value)) {
       this.changeValue(value);
     } else if (typeof this.props.onInvalidInput === "function") {
-      this.props.onInvalidInput(event.target.value);
+      this.props.onInvalidInput(event.target.value.toString());
     }
   }
 
