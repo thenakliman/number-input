@@ -18,7 +18,9 @@
     "start": "BABEL_ENV=dev rollup -c -w",
     "prepare": "BABEL_ENV=dev npm run build",
     "predeploy": "cd example && BABEL_ENV=dev npm install && BABEL_ENV=dev npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "lint": "eslint src",
+    "lintFix": "eslint src --fix"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0",
