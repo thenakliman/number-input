@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import NumberInput from 'number-input'
+import NumberInput from 'number-input-lib';
 
 export default class App extends Component {
   constructor(props) {
