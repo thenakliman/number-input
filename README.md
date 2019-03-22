@@ -25,16 +25,16 @@ class Example extends Component {
                    onInvalidValue={(value) => console.log(value)}/>
 
       <NumberInput type="integer"
-                   onChange={(value) => console.log(value)
+                   onChange={(value) => console.log(value)}
                    onInvalidValue={(value) => console.log(value)}/>
 
       <NumberInput type="positive-float"
-                   onChange={(value) => console.log(value)
+                   onChange={(value) => console.log(value)}
                    precision={3}
                    onInvalidValue={(value) => console.log(value)}/>
 
       <NumberInput type="float"
-                   onChange={(value) => console.log(value)
+                   onChange={(value) => console.log(value)}
                    precision={3}
                    onInvalidValue={(value) => console.log(value)}/>
     )
