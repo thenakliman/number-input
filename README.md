@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save number-input
+npm install --save number-input-lib
 ```
 
 ## Usage
@@ -15,16 +15,67 @@ npm install --save number-input
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'number-input'
+import NumberInput from 'number-input-lib'
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      &lt;NumberInput type="positive-integer"
+                   onChange={(value) => console.log(value)}
+                   onInvalidValue={(value) => console.log(value)}/&gt
+
+      &lt;NumberInput type="integer"
+                   onChange={(value) => console.log(value)
+                   onInvalidValue={(value) => console.log(value)}/&gt
+
+      &lt;NumberInput type="positive-float"
+                   onChange={(value) => console.log(value)
+                   precision={3}
+                   onInvalidValue={(value) => console.log(value)}/&gt
+
+      &lt;NumberInput type="float"
+                   onChange={(value) => console.log(value)
+                   precision={3}
+                   onInvalidValue={(value) => console.log(value)}/&gt
     )
   }
 }
 ```
+
+All the properties of **`input`** tag are available to **`NumberInput`** tag. Apart from **`input`** properties some
+extra properties are provided based on the provided **`type`** to **`NumberInput`**.
+
+**_`positive-integer`_**
+
+| S.No |     Property          |       type      |          Description                                                                    |
+|------|:---------------------:|-----------------|------------------------------------------|
+| 1    | **`onInvalidInput`**  | **`function`**  | When invalid value is typed then this<br> method is called and invalid value is<br> provided as parameter |
+
+
+**_`integer`_**
+
+| S.No |     Property          |       type      |          Description                                                                    |
+|------|:---------------------:|-----------------|------------------------------------------|
+| 1    | **`onInvalidInput`**  | **`function`**  | When invalid value is typed then this<br> method is called and invalid value is<br> provided as parameter|
+
+**_`positive-float`_**
+
+| S.No |     Property          |       type      |          Description                                                                    |
+|------|:---------------------:|-----------------|------------------------------------------|
+| 1    | **`onInvalidInput`**  | **`function`**  | When invalid value is typed then this<br> method is called and invalid value is<br> provided as parameter|
+| 2    | **`precision`**       | **`number`**    | Specify the maximum number of decimal<br> places allowed |
+ 
+**_`float`_**
+
+| S.No |     Property          |       type      |          Description                                                                    |
+|------|:---------------------:|-----------------|------------------------------------------|
+| 1    | **`onInvalidInput`**  | **`function`**  | When invalid value is typed then this<br> method is called and invalid value is<br> provided as parameter |
+| 2    | **`precision`**       | **`number`**    | Specify the maximum number of decimal<br> places allowed |
+ 
+
+##Demo
+Demo is available [here](https://thenakliman.github.io/number-input) and code for the same is available [here](example/src/App.js)
+
 
 ## License
 
